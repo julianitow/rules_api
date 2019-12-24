@@ -25,13 +25,10 @@ class RuleController extends Controller {
 
     public function delete($id){
         Rule::findOrFail($id)->delete();
-        return response('Removed rule successfuly !', 200);
+        return response('Rule removed successfuly !', 200);
     }
 
-    /*public function showAllAuthors(){
-        return response()->json(Author::all());
-    }
-
+    /*
     public function showAllCategories(){
         return response()->json(Categories::all());
     }*/

@@ -20,6 +20,8 @@ $router->get('/', function () use ($router) {
  * Prefix URL with 'domain/api'
  */
 $router->group(['prefix' => 'api'], function() use ($router){
+
+    /********************* RULE PART *******************************/
     /**
      * GET
      * Get all rules in DB
@@ -43,17 +45,69 @@ $router->group(['prefix' => 'api'], function() use ($router){
      * Delete rule identified by 'id'
      */
     $router->delete('rule/{id}', ['uses' => 'RuleController@delete']);
-    
+
+    /********************* CATEGORIES PART  ********************************/
 
     /**
-     * Get all available categories
-     */
-    $router->get('categories', ['uses' => 'RuleController@showCategories']);
-
-    /**
+     * GET
      * Get all rules authors
      */
-    $router->get('authors', ['use' => 'RuleController@showAuthors']);
+    $router->get('categories', ['uses' => 'CategoryController@showAllCategories']);
+
+    /**
+     * GET
+     * Get author identified by 'id'
+     */
+    $router->get('category/{id}', ['uses' => 'CategoryController@showCategory']);
+
+    /**
+     * PUT
+     * Update author identified by 'id'
+     */
+    $router->put('category/{id}', ['uses' => 'CategoryController@update']);
+
+    /**
+     * POST
+     * Create new author
+     */
+    $router->post('categories', ['uses' => 'CategoryController@create']);
+
+    /**
+     * PUT
+     * DELETE author identified by 'id'
+     */
+    $router->delete('category/{id}', ['uses' => 'CategoryController@delete']); 
+
+    /********************* AUHTORS PART *************************************/
+    /**
+     * GET
+     * Get all rules authors
+     */
+    $router->get('authors', ['uses' => 'AuthorController@showAllAuthors']);
+
+    /**
+     * GET
+     * Get author identified by 'id'
+     */
+    $router->get('author/{id}', ['uses' => 'AuthorController@showAuthor']);
+
+    /**
+     * PUT
+     * Update author identified by 'id'
+     */
+    $router->put('author/{id}', ['uses' => 'AuthorController@update']);
+
+    /**
+     * POST
+     * Create new author
+     */
+    $router->post('authors', ['uses' => 'AuthorController@create']);
+
+    /**
+     * PUT
+     * DELETE author identified by 'id'
+     */
+    $router->delete('author/{id}', ['uses' => 'AuthorController@delete']); 
 
     /**
      * TODO: 
