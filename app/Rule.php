@@ -11,7 +11,7 @@ class Rule extends Model {
      * Main attributes of a rule
      */
     protected $fillable = [
-        'name', 'content', 'author', 'categorie'
+        'name', 'content', 'author', 'category'
     ];
 
     /**
