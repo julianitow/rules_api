@@ -1,0 +1,4 @@
+curl --header "Content-Type: application/json"   --request POST   --data '{"name": "regle de test curl Post","content":"Je suis une autre regle de test postée depu
+is un terminal avec curl", "author": "Author NULL", "categorie":"categorie NULL" }'   http://localhost:8080/api/rules --verbose
+
+curl --header "Content-Type: application/json" --request PUT --data '{"name": "regle de test curl PUT"}' http://localhost:8080/api/rules/2 --verbose

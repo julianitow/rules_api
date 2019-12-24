@@ -1,0 +1,15 @@
+###
+
+POST http://localhost:8080/api/rules
+Content-Type: application/json
+
+{
+    "name" : "Regle n°2",
+    "content": "Je suis une règle insérée en utilisant le type de requête POST depuis un contenu JSON",
+    "author": "Author NULL",
+    "categorie": "Categorie NULL"
+}
+
+###
+GET http://0.0.0.0:8080/api/rules
+Accept: application/json
