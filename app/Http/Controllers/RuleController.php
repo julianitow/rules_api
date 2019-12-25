@@ -16,9 +16,9 @@ class RuleController extends Controller {
         $rules = Rule::get();
 
         foreach($rules as $rule){
-            $author = Author::find($rule->author);
-            $category = Category::find($rule->category);
-            
+            $author = Author::findOrFail($rule->author);
+            $category = Category::findOrFail($rule->category);
+
             $rule->author = $author->toArray();
             $rule->category = $category->toArray();
         }
