@@ -3,12 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Rule;
+use App\Author;
+use App\Category;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RuleController extends Controller {
 
     public function showAllRules(){
-        return response()->json(Rule::all());
+
+        $rules = Rule::get();
+
+        foreach($rules as $rule){
+            $author = Author::find($rule->author);
+            $category = Category::find($rule->category);
+            
+            $rule->author = $author->toArray();
+            $rule->category = $category->toArray();
+        }
+        
+        return $rules->toJson();
     }
 
     public function create(Request $request){
@@ -19,7 +34,6 @@ class RuleController extends Controller {
     public function update($id, Request $request){
         $rule = Rule::findOrFail($id);
         $rule->update($request->all());
-
         return response()->json($rule, 200);
     }
 
@@ -27,10 +41,4 @@ class RuleController extends Controller {
         Rule::findOrFail($id)->delete();
         return response('Rule removed successfuly !', 200);
     }
-
-    /*
-    public function showAllCategories(){
-        return response()->json(Categories::all());
-    }*/
-
 }
