@@ -44,7 +44,7 @@ $router->group(['prefix' => 'api'], function() use ($router){
      * PUT
      * Update rule identified by 'id'
      */
-    $router->put('rule/{id}', ['uses' => 'RuleController@update']); 
+    $router->put('rule/{id}', ['uses' => 'RuleController@update']);
 
     /**
      * DELETE
@@ -82,7 +82,7 @@ $router->group(['prefix' => 'api'], function() use ($router){
      * PUT
      * DELETE author identified by 'id'
      */
-    $router->delete('category/{id}', ['uses' => 'CategoryController@delete']); 
+    $router->delete('category/{id}', ['uses' => 'CategoryController@delete']);
 
     /********************* AUHTORS PART *************************************/
     /**
@@ -113,14 +113,50 @@ $router->group(['prefix' => 'api'], function() use ($router){
      * PUT
      * DELETE author identified by 'id'
      */
-    $router->delete('author/{id}', ['uses' => 'AuthorController@delete']); 
+    $router->delete('author/{id}', ['uses' => 'AuthorController@delete']);
+
+
+
+
+
+
+    /********************* RATES PART *************************************/
+    /**
+     * GET
+     * Get all rules rates
+     */
+    $router->get('rates', ['uses' => 'RateController@showAllRates']);
 
     /**
-     * TODO: 
+     * GET
+     * Get rate identified by 'id'
+     */
+    $router->get('rate/{id}', ['uses' => 'RateController@showRate']);
+
+    /**
+     * PUT
+     * Update rate identified by 'id'
+     */
+    $router->put('rate/{id}', ['uses' => 'RateController@update']);
+
+    /**
+     * POST
+     * Create new rate
+     */
+    $router->post('rates', ['uses' => 'RateController@create']);
+
+    /**
+     * PUT
+     * DELETE rate identified by 'id'
+     */
+    $router->delete('rate/{id}', ['uses' => 'RateController@delete']);
+
+    /**
+     * TODO:
      * GET ALL RULES BY CATEGORIES
      * GET ALL RULES BY AUTHOR
      * GET RULE BY ID
-     * 
+     *
      * DELETE RULE
      * UPDATE RULE
      * CREATE RULE

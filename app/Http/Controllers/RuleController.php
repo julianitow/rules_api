@@ -19,19 +19,26 @@ class RuleController extends Controller {
         foreach($rules as $rule){
             $author = Author::findOrFail($rule->author);
             $category = Category::findOrFail($rule->category);
-            $rates = Rate::where('idRule', $rule->id)->take(10)->get();
+
+            $rates = DB::select('SELECT * FROM rates where rule=' . $rule->id);
+            $nbRate = 0;
+            $totalRate = 0;
+            foreach($rates as $rate){
+                $nbRate++;
+                $totalRate += $rate->rate;
+            }
+            if($rates==NULL){
+                $finalRate = 0;
+            }
+            else {
+                $finalRate = $totalRate / $nbRate;
+            }
 
             $rule->author = $author->toArray();
             $rule->category = $category->toArray();
-            $nbRates = 0;
-            foreach($rates as $rate){
-                var_dump($rate->rate);
-                $nbRates++;
-                $rate /= $nbRates;
-                $rule->rate = $rate;
-            }
+            $rule->rate = $finalRate;
         }
-        
+
         return $rules->toJson();
     }
 
@@ -40,17 +47,29 @@ class RuleController extends Controller {
         $author = Author::findOrFail($rule->author);
         $category = Category::findOrFail($rule->category);
 
+        $rates = DB::select('SELECT * FROM rates where rule=' . $id);
+        $nbRate = 0;
+        $totalRate = 0;
+        foreach($rates as $rate){
+            $nbRate++;
+            $totalRate += $rate->rate;
+        }
+        if($rates==NULL){
+            $finalRate = 0;
+        }
+        else {
+            $finalRate = $totalRate / $nbRate;
+        }
+
         $rule->author = $author->toArray();
         $rule->category = $category->toArray();
+        $rule->rate = $finalRate;
 
         return $rule->toJson();
     }
 
     public function create(Request $request){
         $rule = Rule::create($request->all());
-        var_dump($request); 
-        $rate = 0;
-        $rule->rate = $rate;
         return response()->json($rule, 201);
     }
 
