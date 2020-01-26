@@ -29,6 +29,12 @@ $router->group(['prefix' => 'api'], function() use ($router){
     $router->get('rules', ['uses' => 'RuleController@showAllRules']);
 
     /**
+     * GET
+     * Get rule in DB identified by ID
+     */
+    $router->get('rule/{id}', ['uses' => 'RuleController@showRuleById']);
+
+    /**
      * POST
      * Create new rule
      */
