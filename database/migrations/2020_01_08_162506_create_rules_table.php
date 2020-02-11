@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRuleTable extends Migration
+class CreateRulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,8 +17,10 @@ class CreateRuleTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('content');
-            $table->string('author');
-            $table->string('categorie');
+            $table->integer('author')->unsigned();
+            $table->integer('category')->unsigned();
+            $table->foreign('author')->references('id')->on('authors');
+            $table->foreign('category')->references('id')->on('categories');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ class CreateRuleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rule');
+        Schema::dropIfExists('rules');
     }
 }

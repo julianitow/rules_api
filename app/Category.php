@@ -4,17 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rule extends Model {
+class Category extends Model {
 
 
     /**
      * Main attributes of a rule
      */
     protected $fillable = [
-        'name', 'content', 'author', 'category', 'rate'
+        'name'
     ];
 
-    /**
+    /** 
      * Attributes wich will not be in the JSON object
      */
 

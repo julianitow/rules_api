@@ -20,11 +20,26 @@ $router->get('/', function () use ($router) {
  * Prefix URL with 'domain/api'
  */
 $router->group(['prefix' => 'api'], function() use ($router){
+
+    /********************* RULE PART *******************************/
     /**
      * GET
      * Get all rules in DB
      */
-    $router->get('rules', ['uses' => 'RuleController@showAllRules']);
+    $router->get('rules/expandChildren', ['uses' => 'RuleController@showAllRulesExpanded']);
+
+    /********************* RULE PART *******************************/
+    /**
+     * GET
+     * Get all rules in DB
+     */
+    $router->get('rules/', ['uses' => 'RuleController@showAllRules']);
+
+    /**
+     * GET
+     * Get rule in DB identified by ID
+     */
+    $router->get('rule/{id}', ['uses' => 'RuleController@showRuleById']);
 
     /**
      * POST
@@ -36,31 +51,125 @@ $router->group(['prefix' => 'api'], function() use ($router){
      * PUT
      * Update rule identified by 'id'
      */
-    $router->put('rule/{id}', ['uses' => 'RuleController@update']); 
+    $router->put('rule/{id}', ['uses' => 'RuleController@update']);
 
     /**
      * DELETE
      * Delete rule identified by 'id'
      */
     $router->delete('rule/{id}', ['uses' => 'RuleController@delete']);
-    
+
+    /********************* CATEGORIES PART  ********************************/
 
     /**
-     * Get all available categories
-     */
-    $router->get('categories', ['uses' => 'RuleController@showCategories']);
-
-    /**
+     * GET
      * Get all rules authors
      */
-    $router->get('authors', ['use' => 'RuleController@showAuthors']);
+    $router->get('categories', ['uses' => 'CategoryController@showAllCategories']);
 
     /**
-     * TODO: 
+     * GET
+     * Get author identified by 'id'
+     */
+    $router->get('category/{id}', ['uses' => 'CategoryController@showCategory']);
+
+    /**
+     * PUT
+     * Update author identified by 'id'
+     */
+    $router->put('category/{id}', ['uses' => 'CategoryController@update']);
+
+    /**
+     * POST
+     * Create new author
+     */
+    $router->post('categories', ['uses' => 'CategoryController@create']);
+
+    /**
+     * PUT
+     * DELETE author identified by 'id'
+     */
+    $router->delete('category/{id}', ['uses' => 'CategoryController@delete']);
+
+    /********************* AUHTORS PART *************************************/
+    /**
+     * GET
+     * Get all rules authors
+     */
+    $router->get('authors', ['uses' => 'AuthorController@showAllAuthors']);
+
+    /**
+     * GET
+     * Get author identified by 'id'
+     */
+    $router->get('author/{id}', ['uses' => 'AuthorController@showAuthorById']);
+
+    /**
+     * GET
+     * Get author identified by 'email'
+     */
+    $router->get('author/email/{email}', ['uses' => 'AuthorController@showAuthorByEmail']);
+
+    /**
+     * PUT
+     * Update author identified by 'id'
+     */
+    $router->put('author/{id}', ['uses' => 'AuthorController@update']);
+
+    /**
+     * POST
+     * Create new author
+     */
+    $router->post('authors', ['uses' => 'AuthorController@create']);
+
+    /**
+     * PUT
+     * DELETE author identified by 'id'
+     */
+    $router->delete('author/{id}', ['uses' => 'AuthorController@delete']);
+
+
+
+
+
+
+    /********************* RATES PART *************************************/
+    /**
+     * GET
+     * Get all rules rates
+     */
+    $router->get('rates', ['uses' => 'RateController@showAllRates']);
+
+    /**
+     * GET
+     * Get rate identified by 'id'
+     */
+    $router->get('rate/{id}', ['uses' => 'RateController@showRate']);
+
+    /**
+     * PUT
+     * Update rate identified by 'id'
+     */
+    $router->put('rate/{id}', ['uses' => 'RateController@update']);
+
+    /**
+     * POST
+     * Create new rate
+     */
+    $router->post('rates', ['uses' => 'RateController@create']);
+
+    /**
+     * PUT
+     * DELETE rate identified by 'id'
+     */
+    $router->delete('rate/{id}', ['uses' => 'RateController@delete']);
+
+    /**
+     * TODO:
      * GET ALL RULES BY CATEGORIES
      * GET ALL RULES BY AUTHOR
      * GET RULE BY ID
-     * 
+     *
      * DELETE RULE
      * UPDATE RULE
      * CREATE RULE

@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rule extends Model {
+class Author extends Model {
 
 
     /**
-     * Main attributes of a rule
+     * Main attributes of an Author
      */
     protected $fillable = [
-        'name', 'content', 'author', 'category', 'rate'
+        'id', 'name', 'email'
     ];
 
     /**

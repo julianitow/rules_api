@@ -1,23 +1,23 @@
-<?php 
+<?php
 
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rule extends Model {
+class Rate extends Model {
 
 
     /**
-     * Main attributes of a rule
+     * Main attributes of an Rate
      */
     protected $fillable = [
-        'name', 'content', 'author', 'category', 'rate'
+        'rate', 'rule'
     ];
 
     /**
      * Attributes wich will not be in the JSON object
      */
 
-     protected $hidden = [];
+    protected $hidden = [];
 
 }
