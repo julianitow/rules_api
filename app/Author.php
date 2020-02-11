@@ -11,7 +11,7 @@ class Author extends Model {
      * Main attributes of an Author
      */
     protected $fillable = [
-        'name', 'email'
+        'id', 'name', 'email'
     ];
 
     /**

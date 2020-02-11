@@ -12,7 +12,7 @@ class CategoryController extends Controller {
     }
 
     public function showCategory($id){
-        return response()->json(Category::findOrFail($id));
+        return response()->json([Category::findOrFail($id)]);
     }
 
     public function create(Request $request){

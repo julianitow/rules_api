@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class RuleController extends Controller {
 
-    public function showAllRules(){
+    public function showAllRulesExpanded(){
 
         $rules = Rule::get();
 
@@ -36,6 +36,33 @@ class RuleController extends Controller {
 
             $rule->author = $author->toArray();
             $rule->category = $category->toArray();
+            $rule->rate = $finalRate;
+        }
+
+        return $rules->toJson();
+    }
+
+    public function showAllRules(){
+
+        $rules = Rule::get();
+
+        foreach($rules as $rule){
+            $author = Author::findOrFail($rule->author);
+            $category = Category::findOrFail($rule->category);
+
+            $rates = DB::select('SELECT * FROM rates where rule=' . $rule->id);
+            $nbRate = 0;
+            $totalRate = 0;
+            foreach($rates as $rate){
+                $nbRate++;
+                $totalRate += $rate->rate;
+            }
+            if($rates==NULL){
+                $finalRate = 0;
+            }
+            else {
+                $finalRate = $totalRate / $nbRate;
+            }
             $rule->rate = $finalRate;
         }
 
@@ -69,7 +96,17 @@ class RuleController extends Controller {
     }
 
     public function create(Request $request){
-        $rule = Rule::create($request->all());
+        $category = Category::create($request->category);
+        $author = Author::create($request->author);
+        $request->category = $category->id;
+        $request->author = $author->id;
+        $rule = new Rule();
+        $rule->name = $request->name;
+        $rule->content = $request->content;
+        $rule->category = $category->id;
+        $rule->author = $author->id;
+        $result = Rule::create($rule->toArray());
+
         return response()->json($rule, 201);
     }
 

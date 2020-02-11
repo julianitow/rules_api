@@ -11,8 +11,18 @@ class AuthorController extends Controller {
         return response()->json(Author::all());
     }
 
-    public function showAuthor($id){
-        return response()->json(Author::findOrFail($id));
+    public function showAuthorById($id){
+        $author = Author::findOrFail($id);
+        $result = [$author->toArray()];
+
+        return response()->json($result);
+    }
+
+    public function showAuthorByEmail($email){
+        $author = Author::findOrFail($email);
+        $result = [$author->toArray()];
+
+        return response()->json($result);
     }
 
     public function create(Request $request){

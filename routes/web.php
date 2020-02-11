@@ -26,7 +26,14 @@ $router->group(['prefix' => 'api'], function() use ($router){
      * GET
      * Get all rules in DB
      */
-    $router->get('rules', ['uses' => 'RuleController@showAllRules']);
+    $router->get('rules/expandChildren', ['uses' => 'RuleController@showAllRulesExpanded']);
+
+    /********************* RULE PART *******************************/
+    /**
+     * GET
+     * Get all rules in DB
+     */
+    $router->get('rules/', ['uses' => 'RuleController@showAllRules']);
 
     /**
      * GET
@@ -95,7 +102,13 @@ $router->group(['prefix' => 'api'], function() use ($router){
      * GET
      * Get author identified by 'id'
      */
-    $router->get('author/{id}', ['uses' => 'AuthorController@showAuthor']);
+    $router->get('author/{id}', ['uses' => 'AuthorController@showAuthorById']);
+
+    /**
+     * GET
+     * Get author identified by 'email'
+     */
+    $router->get('author/email/{email}', ['uses' => 'AuthorController@showAuthorByEmail']);
 
     /**
      * PUT
