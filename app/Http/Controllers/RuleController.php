@@ -96,15 +96,37 @@ class RuleController extends Controller {
     }
 
     public function create(Request $request){
-        $category = Category::create($request->category);
-        $author = Author::create($request->author);
-        $request->category = $category->id;
-        $request->author = $author->id;
+        $author = null;
+        $category = null;
         $rule = new Rule();
         $rule->name = $request->name;
         $rule->content = $request->content;
-        $rule->category = $category->id;
-        $rule->author = $author->id;
+        $rule->drinks = $request->drinks;
+        /*$tmp_rule = Category::findOrFail($request->category);
+        
+        if($tmp_rule == null){
+            if(!is_int($request->category)){
+                Category::create($tmp_rule->toArray());
+            }
+        } else {
+
+        }*/
+
+        if(is_int($request->category)){
+            $rule->category = $request->category;
+        } else {
+            $category = Category::create($request->category);
+            $rule->category = $category->id;
+            $request->category = $category->id;
+        }
+        if(is_int($request->author)){
+            $rule->author = $request->author;
+        } else {
+            $author = Author::create($request->author);
+            $rule->author = $author->id;
+            $request->author = $author->id;
+        }
+
         $result = Rule::create($rule->toArray());
 
         return response()->json($rule, 201);

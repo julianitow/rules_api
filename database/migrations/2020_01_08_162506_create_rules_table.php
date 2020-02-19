@@ -19,6 +19,7 @@ class CreateRulesTable extends Migration
             $table->string('content');
             $table->integer('author')->unsigned();
             $table->integer('category')->unsigned();
+            $table->integer('drinks')->unsigned();
             $table->foreign('author')->references('id')->on('authors');
             $table->foreign('category')->references('id')->on('categories');
             $table->timestamps();
