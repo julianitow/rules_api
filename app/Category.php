@@ -11,7 +11,7 @@ class Category extends Model {
      * Main attributes of a rule
      */
     protected $fillable = [
-        'name'
+        'name', 'description'
     ];
 
     /** 

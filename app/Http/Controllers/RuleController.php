@@ -148,6 +148,20 @@ class RuleController extends Controller {
         $rules = DB::select('SELECT * FROM rules WHERE category = ' . $category->id);
         $result = [];
         foreach($rules as $rule){
+            $rates = DB::select('SELECT * FROM rates where rule=' . $rule->id);
+            $nbRate = 0;
+            $totalRate = 0;
+            foreach($rates as $rate){
+                $nbRate++;
+                $totalRate += $rate->rate;
+            }
+            if($rates==NULL){
+                $finalRate = 0;
+            }
+            else {
+                $finalRate = $totalRate / $nbRate;
+            }
+            $rule->rate = $finalRate;
             array_push($result, $rule);
         }
         return response()->json($result, 200);
