@@ -59,6 +59,12 @@ $router->group(['prefix' => 'api'], function() use ($router){
      */
     $router->delete('rule/{id}', ['uses' => 'RuleController@delete']);
 
+    /**
+     * GET
+     * Get rules by categoriy
+     */
+    $router->get('category/{name}/rules', ['uses' => 'RuleController@getByCategory']);
+
     /********************* CATEGORIES PART  ********************************/
 
     /**
@@ -127,11 +133,6 @@ $router->group(['prefix' => 'api'], function() use ($router){
      * DELETE author identified by 'id'
      */
     $router->delete('author/{id}', ['uses' => 'AuthorController@delete']);
-
-
-
-
-
 
     /********************* RATES PART *************************************/
     /**

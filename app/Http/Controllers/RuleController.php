@@ -142,4 +142,14 @@ class RuleController extends Controller {
         Rule::findOrFail($id)->delete();
         return response('Rule removed successfuly !', 200);
     }
+
+    public function getByCategory($name){
+        $category = DB::select('SELECT * FROM categories WHERE name LIKE \'' . $name . '\'')[0];
+        $rules = DB::select('SELECT * FROM rules WHERE category = ' . $category->id);
+        $result = [];
+        foreach($rules as $rule){
+            array_push($result, $rule);
+        }
+        return response()->json($result, 200);
+    }
 }
